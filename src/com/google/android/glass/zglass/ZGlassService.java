@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.glass.sample.stopwatch;
+package com.google.android.glass.zglass;
 
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
@@ -29,12 +29,12 @@ import android.util.Log;
 /**
  * Service owning the LiveCard living in the timeline.
  */
-public class StopwatchService extends Service {
+public class ZGlassService extends Service {
 
-    private static final String TAG = "StopwatchService";
-    private static final String LIVE_CARD_TAG = "stopwatch";
+    private static final String TAG = "ZGlassService";
+    private static final String LIVE_CARD_TAG = "zglass";
 
-    private ChronometerDrawer mCallback;
+    private ScouterDrawer mCallback;
 
     private TimelineManager mTimelineManager;
     private LiveCard mLiveCard;
@@ -57,7 +57,7 @@ public class StopwatchService extends Service {
             mLiveCard = mTimelineManager.createLiveCard(LIVE_CARD_TAG);
 
             // Keep track of the callback to remove it before unpublishing.
-            mCallback = new ChronometerDrawer(this);
+            mCallback = new ScouterDrawer(this);
             mLiveCard.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mCallback);
 
             Intent menuIntent = new Intent(this, MenuActivity.class);

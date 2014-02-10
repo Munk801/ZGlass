@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.glass.sample.stopwatch;
+package com.google.android.glass.zglass;
 
 import android.content.Context;
 import android.os.Handler;
@@ -26,12 +26,14 @@ import android.widget.TextView;
 
 import java.util.concurrent.TimeUnit;
 
+import com.google.android.glass.sample.stopwatch.R;
+
 /**
  * View used to display draw a running Chronometer.
  *
  * This code is greatly inspired by the Android's Chronometer widget.
  */
-public class ChronometerView extends FrameLayout {
+public class ScouterView extends FrameLayout {
 
     /**
      * Interface to listen for changes on the view layout.
@@ -57,15 +59,15 @@ public class ChronometerView extends FrameLayout {
 
     private ChangeListener mChangeListener;
 
-    public ChronometerView(Context context) {
+    public ScouterView(Context context) {
         this(context, null, 0);
     }
 
-    public ChronometerView(Context context, AttributeSet attrs) {
+    public ScouterView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public ChronometerView(Context context, AttributeSet attrs, int style) {
+    public ScouterView(Context context, AttributeSet attrs, int style) {
         super(context, attrs, style);
         LayoutInflater.from(context).inflate(R.layout.card_chronometer, this);
 

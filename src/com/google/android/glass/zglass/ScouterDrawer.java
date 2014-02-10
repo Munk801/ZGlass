@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.google.android.glass.sample.stopwatch;
+package com.google.android.glass.zglass;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.SystemClock;
@@ -28,11 +29,13 @@ import android.view.View;
 
 import java.util.concurrent.TimeUnit;
 
+import com.google.android.glass.sample.stopwatch.R;
+
 /**
  * SurfaceHolder.Callback used to draw the chronometer on the timeline LiveCard.
  */
-public class ChronometerDrawer implements SurfaceHolder.Callback {
-    private static final String TAG = "ChronometerDrawer";
+public class ScouterDrawer implements SurfaceHolder.Callback {
+    private static final String TAG = "ScouterDrawer";
 
     private static final long SEC_TO_MILLIS = TimeUnit.SECONDS.toMillis(1);
     private static final int SOUND_PRIORITY = 1;
@@ -44,7 +47,7 @@ public class ChronometerDrawer implements SurfaceHolder.Callback {
     private final int mCountDownSoundId;
 
     private final CountDownView mCountDownView;
-    private final ChronometerView mChronometerView;
+    private final ScouterView mScouterView;
 
     private long mCurrentTimeSeconds;
     private boolean mCountDownSoundPlayed;
@@ -52,7 +55,7 @@ public class ChronometerDrawer implements SurfaceHolder.Callback {
     private SurfaceHolder mHolder;
     private boolean mCountDownDone;
 
-    public ChronometerDrawer(Context context) {
+    public ScouterDrawer(Context context) {
         mCountDownView = new CountDownView(context);
         mCountDownView.setCountDown(COUNT_DOWN_VALUE);
         mCountDownView.setListener(new CountDownView.CountDownListener() {
@@ -66,9 +69,9 @@ public class ChronometerDrawer implements SurfaceHolder.Callback {
             @Override
             public void onFinish() {
                 mCountDownDone = true;
-                mChronometerView.setBaseMillis(SystemClock.elapsedRealtime());
+                mScouterView.setBaseMillis(SystemClock.elapsedRealtime());
                 if (mHolder != null) {
-                    mChronometerView.start();
+                    mScouterView.start();
                 }
                 playSound(mStartSoundId);
             }
@@ -89,15 +92,15 @@ public class ChronometerDrawer implements SurfaceHolder.Callback {
             }
         });
 
-        mChronometerView = new ChronometerView(context);
-        mChronometerView.setListener(new ChronometerView.ChangeListener() {
+        mScouterView = new ScouterView(context);
+        mScouterView.setListener(new ScouterView.ChangeListener() {
 
             @Override
             public void onChange() {
-                draw(mChronometerView);
+                draw(mScouterView);
             }
         });
-        mChronometerView.setForceStart(true);
+        mScouterView.setForceStart(true);
 
         mSoundPool = new SoundPool(MAX_STREAMS, AudioManager.STREAM_MUSIC, 0);
         mStartSoundId = mSoundPool.load(context, R.raw.start, SOUND_PRIORITY);
@@ -114,9 +117,9 @@ public class ChronometerDrawer implements SurfaceHolder.Callback {
         mCountDownView.layout(
                 0, 0, mCountDownView.getMeasuredWidth(), mCountDownView.getMeasuredHeight());
 
-        mChronometerView.measure(measuredWidth, measuredHeight);
-        mChronometerView.layout(
-                0, 0, mChronometerView.getMeasuredWidth(), mChronometerView.getMeasuredHeight());
+        mScouterView.measure(measuredWidth, measuredHeight);
+        mScouterView.layout(
+                0, 0, mScouterView.getMeasuredWidth(), mScouterView.getMeasuredHeight());
     }
 
     @Override
@@ -124,7 +127,7 @@ public class ChronometerDrawer implements SurfaceHolder.Callback {
         Log.d(TAG, "Surface created");
         mHolder = holder;
         if (mCountDownDone) {
-            mChronometerView.start();
+            mScouterView.start();
         } else {
             mCountDownView.start();
         }
@@ -133,7 +136,7 @@ public class ChronometerDrawer implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         Log.d(TAG, "Surface destroyed");
-        mChronometerView.stop();
+        mScouterView.stop();
         mHolder = null;
     }
 
@@ -141,6 +144,8 @@ public class ChronometerDrawer implements SurfaceHolder.Callback {
      * Draws the view in the SurfaceHolder's canvas.
      */
     private void draw(View view) {
+    	// Set the background color of the view
+    	view.setBackgroundColor(Color.WHITE);
         Canvas canvas;
         try {
             canvas = mHolder.lockCanvas();

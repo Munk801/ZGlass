@@ -15,7 +15,7 @@
 -->
 
 <resources>
-    <string name="app_name">StopWatch</string>
-    <string name="start_stopwatch">start a stopwatch</string>
+    <string name="app_name">ZScouter</string>
+    <string name="start_scouter">locate power level</string>
     <string name="stop">Stop</string>
 </resources>

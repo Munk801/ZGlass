@@ -12,6 +12,7 @@ public final class R {
     }
     public static final class color {
         public static final int black=0x7f060000;
+        public static final int green=0x7f060001;
     }
     public static final class drawable {
         public static final int ic_colon=0x7f020000;
@@ -39,7 +40,7 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f070000;
-        public static final int start_stopwatch=0x7f070001;
+        public static final int start_scouter=0x7f070001;
         public static final int stop=0x7f070002;
     }
     public static final class style {
